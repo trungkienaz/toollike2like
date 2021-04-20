@@ -4,7 +4,6 @@ from selenium.webdriver.common.by import By
 
 #hiphopnerversai9@gmail.com
 #XZGFFHHKLNK
-
 a = input("hay nhap tai khoan ")
 b = input("hay nhap nhap khau ")
 print('nhap job muon lam')
@@ -13,11 +12,10 @@ print('2: Job like facebook')
 print('3: Job share facebook')
 print('4: All job')
 vj = int(input('chon : '))
-if vj == 4:
-    print('DMM dang hoc de code =)))')
-    
-else:
-    print('nahh')
+
+likeButton = ''
+shareButton = ''
+innerShareButton = ''
 
 
 def YoutubeJobBot():
@@ -47,7 +45,7 @@ def YoutubeJobBot():
         time.sleep(1.5)
 
 
-def LikePostJobBot():
+def LikePostJobBot(likeButton):
     driver.execute_script('document.querySelector("#root > section > section > main > div > div > div > div:nth-child(2) > div > div > div > div.gx-module-sidenav.gx-d-none.gx-d-lg-flex > div > div > div > div:nth-child(1) > ul > li:nth-child(4) > span > span").click()')
     time.sleep(1)
     while True:
@@ -61,7 +59,7 @@ def LikePostJobBot():
             driver.find_element(By.CSS_SELECTOR, "div[class='_3l2t  _18vj']").click()
             time.sleep(0.5)
         else:
-            driver.find_element(By.CSS_SELECTOR, "i[class='hu5pjgll m6k467ps sp_EGKjJ7k27d8 sx_796c40']").click()
+            driver.find_element(By.CSS_SELECTOR, f"i[class='{likeButton}']").click()
             time.sleep(0.5)
         driver.close()
         driver.switch_to.window(origin_window)
@@ -70,7 +68,7 @@ def LikePostJobBot():
         time.sleep(1.5)
 
 
-def SharePostJobBot():
+def SharePostJobBot(shareButton, innerShareButton):
     driver.execute_script('document.querySelector("#root > section > section > main > div > div > div > div:nth-child(2) > div > div > div > div.gx-module-sidenav.gx-d-none.gx-d-lg-flex > div > div > div > div:nth-child(1) > ul > li:nth-child(7) > span > span").click()')
     time.sleep(1)
     while True:
@@ -81,9 +79,9 @@ def SharePostJobBot():
         driver.switch_to.window(driver.window_handles[-1])
         time.sleep(5)
     
-        driver.find_element(By.CSS_SELECTOR, "i[class='hu5pjgll m6k467ps sp_EGKjJ7k27d8 sx_bf9834']").click()
+        driver.find_element(By.CSS_SELECTOR, f"i[class='{shareButton}']").click()
         time.sleep(1)
-        driver.find_element(By.CSS_SELECTOR, "i[class='hu5pjgll lzf7d6o1 sp_pr2guA1QuQX sx_2e469f']").click()
+        driver.find_element(By.CSS_SELECTOR, f"i[class='{innerShareButton}']").click()
         time.sleep(3)
         driver.close()
         driver.switch_to.window(origin_window)
@@ -114,9 +112,16 @@ time.sleep(7)
 
 
 
-if vj == 1:
+if vj == 4:
+    print('DMM dang hoc de code =)))')    
+elif vj == 1:
+
     YoutubeJobBot()
 elif vj == 2:
-    LikePostJobBot()
+
+    LikePostJobBot(likeButton)
 elif vj == 3:
-    SharePostJobBot()
+
+    SharePostJobBot(shareButton, innerShareButton)
+else:
+    print('nahh')
