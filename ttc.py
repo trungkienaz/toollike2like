@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 a = input("hay nhap tai khoan fb : ")
+
 b = input("hay nhap nhap khau fb : ")
 c = input("hay nhap tai khoan ttc : ")
 d = input("hay nhap nhap khau ttc : ")
@@ -30,7 +31,7 @@ time.sleep(1)
 driver.find_element_by_name('submit').click()
 time.sleep(3)
 driver.get('https://tuongtaccheo.com/kiemtien/')
-time.sleep(10)
+time.sleep(6)
 
 driver.execute_script('document.querySelector("button.btn.btn-default").click()')
 time.sleep(3)
@@ -38,9 +39,11 @@ time.sleep(3)
 driver.switch_to.window(driver.window_handles[-1])
 
 time.sleep(6)
-# driver.find_element_by_class_name('rq0escxv l9j0dhe7 du4w35lb j83agx80 cbu4d94t pfnyh3mw d2edcug0 hpfvmrgz ph5uu5jm b3onmgus iuny7tx3 ipjc6fyt').click()
-driver.execute_script('document.querySelector(".rq0escxv.l9j0dhe7.du4w35lb.j83agx80.cbu4d94t.pfnyh3mw.d2edcug0.hpfvmrgz.ph5uu5jm.b3onmgus.iuny7tx3.ipjc6fyt").click()')
+
+#driver.execute_script('document.querySelector(".rq0escxv.l9j0dhe7.du4w35lb.j83agx80.cbu4d94t.pfnyh3mw.d2edcug0.hpfvmrgz.ph5uu5jm.b3onmgus.iuny7tx3.ipjc6fyt").click()')
+driver.find_element_by_css_selector("[class='rq0escxv l9j0dhe7 du4w35lb j83agx80 cbu4d94t pfnyh3mw d2edcug0 hpfvmrgz ph5uu5jm b3onmgus iuny7tx3 ipjc6fyt']").click()
 time.sleep(0.5)
+
 # driver.close()
 # driver.switch_to.window(origin_window)
 # time.sleep(1)
