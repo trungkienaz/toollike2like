@@ -21,7 +21,7 @@ driver = webdriver.Chrome(executable_path='/home/bobby/Downloads/chromedriver', 
 driver.maximize_window()
 origin_window = driver.current_window_handle
 
-driver.get('https://www.facebook.com//login') #chạy facebook
+driver.get('https://www.facebook.com/login') #chạy facebook
 time.sleep(1)
 driver.find_element_by_id('email').send_keys(a) #UID facebook
 time.sleep(1)
@@ -41,24 +41,40 @@ driver.find_element_by_name('submit').click()
 time.sleep(3)
 driver.get('https://tuongtaccheo.com/kiemtien/')
 ##########begining done ###########
-controlState = 1
-for i in range(10):
-    # driver.get('https://tuongtaccheo.com/kiemtien/')
-    try:
-        ttcRequest = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button.btn.btn-default")))
-        ttcRequest.click()
-        time.sleep(1)
-    except:
-        print('cant click?')    
-    driver.switch_to.window(driver.window_handles[-1])
-    likeButton =  WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[class='rq0escxv l9j0dhe7 du4w35lb j83agx80 cbu4d94t pfnyh3mw d2edcug0 hpfvmrgz ph5uu5jm b3onmgus iuny7tx3 ipjc6fyt']")))
-    likeButton.click()
-    time.sleep(0.5)
-    driver.close()
-    driver.switch_to.window(origin_window)
-    time.sleep(1)
-    moneyButton = driver.find_element_by_xpath(f'/html/body/div[1]/div/div[2]/div/div[1]/div/div[{controlState}]/div/div/button')     
-    moneyButton.click()
-    time.sleep(2)
-    controlState+= 1
+reLoadJob = driver.find_element_by_id('tailai')
 
+def JobsListCount():
+    try:
+        tempJobsList = WebDriverWait(driver, 5).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "#dspost .col-md-2")))
+        return len(tempJobsList)
+    except:
+        return 1
+def LikeAction(JobsList):
+    for i in range(JobsList):
+        # driver.get('https://tuongtaccheo.com/kiemtien/')
+        try:
+            ttcRequest = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button.btn.btn-default")))
+            ttcRequest.click()
+            time.sleep(1)
+        except:
+            print('cant click?')
+        driver.switch_to.window(driver.window_handles[-1])
+        try:
+            likeButton =  WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[class='rq0escxv l9j0dhe7 du4w35lb j83agx80 cbu4d94t pfnyh3mw d2edcug0 hpfvmrgz ph5uu5jm b3onmgus iuny7tx3 ipjc6fyt']")))
+            likeButton.click()
+        except:
+            print('error link')
+        time.sleep(0.5)
+        driver.close()
+        driver.switch_to.window(origin_window)
+        time.sleep(1)
+        moneyButton = driver.find_element_by_xpath(f'/html/body/div[1]/div/div[2]/div/div[1]/div/div[{i+1}]/div/div/button')     
+        moneyButton.click()
+        time.sleep(2)
+
+while True:       
+    Jobslist = JobsListCount()
+    if Jobslist == 1:
+        driver.get()
+    LikeAction(Jobslist)
+    reLoadJob.click()
