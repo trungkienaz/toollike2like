@@ -73,6 +73,9 @@ def LikeAction(JobsList):
         time.sleep(1)
         moneyButton = driver.find_element_by_xpath(f'/html/body/div[1]/div/div[2]/div/div[1]/div/div[{i+1}]/div/div/button')     
         moneyButton.click()
+        time.sleep(1)
+        soCash = driver.find_element_by_id('soduchinh').text
+        print(f'so xu hien tai: {soCash}')
         time.sleep(2)
 
 while True:       
