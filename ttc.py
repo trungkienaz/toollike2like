@@ -15,6 +15,7 @@ d = 'Application999'
 # d = input("hay nhap nhap khau ttc : ")
 
 chrome_options = Options()
+# chrome_options.add_argument("--headless")
 chrome_options.add_experimental_option("prefs", { "profile.default_content_setting_values.notifications": 1})
 driver = webdriver.Chrome(executable_path='/home/bobby/Downloads/chromedriver', chrome_options=chrome_options)
 
@@ -58,14 +59,16 @@ def LikeAction(JobsList):
             time.sleep(1)
         except:
             print('cant click?')
-        driver.switch_to.window(driver.window_handles[-1])
+            break
         try:
+            driver.switch_to.window(driver.window_handles[-1])
             likeButton =  WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[class='rq0escxv l9j0dhe7 du4w35lb j83agx80 cbu4d94t pfnyh3mw d2edcug0 hpfvmrgz ph5uu5jm b3onmgus iuny7tx3 ipjc6fyt']")))
             likeButton.click()
         except:
             print('error link')
         time.sleep(0.5)
         driver.close()
+        # errorr heree
         driver.switch_to.window(origin_window)
         time.sleep(1)
         moneyButton = driver.find_element_by_xpath(f'/html/body/div[1]/div/div[2]/div/div[1]/div/div[{i+1}]/div/div/button')     
@@ -74,7 +77,5 @@ def LikeAction(JobsList):
 
 while True:       
     Jobslist = JobsListCount()
-    if Jobslist == 1:
-        driver.get()
     LikeAction(Jobslist)
     reLoadJob.click()
