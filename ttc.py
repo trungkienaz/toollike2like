@@ -9,11 +9,12 @@ a = '0862693549'
 b = 'Application999'
 c = 'bobbystanoff'
 d = 'Application999'
+
 # a = input("hay nhap tai khoan fb : ")
 # b = input("hay nhap nhap khau fb : ")
 # c = input("hay nhap tai khoan ttc : ")
 # d = input("hay nhap nhap khau ttc : ")
-
+DELAYTIME = float(input('nhap thoi gian delay: '))
 chrome_options = Options()
 # chrome_options.add_argument("--headless")
 chrome_options.add_experimental_option("prefs", { "profile.default_content_setting_values.notifications": 1})
@@ -63,6 +64,7 @@ def LikeAction(JobsList):
         try:
             driver.switch_to.window(driver.window_handles[-1])
             likeButton =  WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[class='rq0escxv l9j0dhe7 du4w35lb j83agx80 cbu4d94t pfnyh3mw d2edcug0 hpfvmrgz ph5uu5jm b3onmgus iuny7tx3 ipjc6fyt']")))
+            time.sleep(DELAYTIME)
             likeButton.click()
         except:
             print('error link')
