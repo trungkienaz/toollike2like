@@ -73,8 +73,12 @@ def LikeAction(JobsList):
         # errorr heree
         driver.switch_to.window(origin_window)
         time.sleep(1)
-        moneyButton = driver.find_element_by_xpath(f'/html/body/div[1]/div/div[2]/div/div[1]/div/div[{i+1}]/div/div/button')     
-        moneyButton.click()
+        try:
+            moneyButton = driver.find_element_by_xpath(f'/html/body/div[1]/div/div[2]/div/div[1]/div/div[{i+1}]/div/div/button')     
+            moneyButton.click()
+        except:
+            print('ko nhan tien')
+            break
         time.sleep(1)
         soCash = driver.find_element_by_id('soduchinh').text
         print(f'so xu hien tai: {soCash}')
