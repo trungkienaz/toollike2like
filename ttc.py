@@ -1,24 +1,65 @@
 import time #thêm time
+import os
+import sys
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 ###################PHAN IN RA MAN HINH#############
-a = '0862693549'
-b = 'Application999'
-c = 'bobbystanoff'
-d = 'Application999'
+print("""\
 
-# a = input("hay nhap tai khoan fb : ")
-# b = input("hay nhap nhap khau fb : ")
-# c = input("hay nhap tai khoan ttc : ")
-# d = input("hay nhap nhap khau ttc : ")
-DELAYTIME = float(input('nhap thoi gian delay: '))
-print('@@@@@@@@@@@@@@@@@@@@@@@')
-print('1: job like')
-print('2: job follow')
-SELECTMODE = int(input('chon job muon lam: '))
+ __      __         .__   .__                                    
+/  \    /  \  ____  |  |  |  |     ____   ____    _____    ____  
+\   \/\/   /_/ __ \ |  |  |  |   _/ ___\ /  _ \  /     \ _/ __ \ 
+ \        / \  ___/ |  |__|  |__ \  \___(  <_> )|  Y Y  \\  ___/ 
+  \__/\  /   \___  >|____/|____/  \___  >\____/ |__|_|  / \___  >
+       \/        \/                   \/              \/      \/ 
+
+
+                    """)
+time.sleep(2)
+os.system('cls')
+# a = trandao1021993@gmail.com 
+# b = 21062004huy
+# c = trangiahuy21
+# d = trangiahuy06
+a = input("Account FB : ")
+b = input("Pass FB: ")
+c = input("Account Tuong Tac Cheo: ")
+d = input("Mat Khau Tuong Tac Cheo : ")
+os.system('cls')
+DELAYTIME = float(input('Time Delay: '))
+xuGioiHan = int(input('nhap gioi han xu: '))
+os.system('cls')
+print("""\
+
+
+  _____           _  __   __ _        
+ |_   _|___  ___ | | \ \ / /(_) _ __  
+   | | / _ \/ _ \| |  \ V / | || '_ \ 
+   |_| \___/\___/|_|   \_/  |_|| .__/ 
+                               |_|    
+
+
+
+                    """)
+print(' ăn quả nhớ kẻ trồng cây ăn xu thì nhớ mặt tụi tao')                 
+time.sleep(3)
+os.system('cls')
+
+print('1: job Like')
+print('2: job Follow')
+SELECTMODE = int(input('Select Job : '))
+os.system('cls')
+print('Account Fb: ',a)
+print('Acc ttc: ' ,c)
+print("""\                                               
+███████╗███████╗███████╗███████╗███████╗███████╗
+╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝  """)
+
+
+
 
 ############KHOI DONG SELENIUM########
 chrome_options = Options()
@@ -51,9 +92,23 @@ driver.find_element_by_name('submit').click()
 time.sleep(3)
 
 ##########begining done ###########
+# ControlVar = {
+#     'jobTong' : 0,
+#     'soJobLike' : 0,
+#     'soJobFollow' : 0,
+#     'accFB' : '',
+#     'accTTC' : ''
+# }
+
+
+def ThoatChuongTrinh(): # dung quan tam lam gi 
+    print('----------------------------------')
+    print('Account Fb: ',a)
+    print('Acc ttc: ' ,c)
+    sys.exit()
 
 ############ DAY LA JOB LIKE ####################33
-def LamJobLike():    # tao ham de chon mode like hay follow
+def LamJobLike(xuGioiHan):    # tao ham de chon mode like hay follow
     driver.get('https://tuongtaccheo.com/kiemtien/') #link like 
 
     reLoadJob = driver.find_element_by_id('tailai')  #nut tai lai, het job thi bam de tai them job moi
@@ -70,7 +125,7 @@ def LamJobLike():    # tao ham de chon mode like hay follow
                 ttcRequest.click() # click nut lam job
                 time.sleep(1)
             except:
-                print('cant click?') # ko click duoc thi in ra man hinh
+                print('khong the lam job nay') # ko click duoc thi in ra man hinh
                 break # in roi thi thoat khoi vong lap
             try:
                 driver.switch_to.window(driver.window_handles[-1]) # chuyen sang tab moi mo
@@ -78,7 +133,7 @@ def LamJobLike():    # tao ham de chon mode like hay follow
                 time.sleep(DELAYTIME) #cho 
                 likeButton.click() #nhan nut like
             except: # neu link loi thi thuc hien dong nay
-                print('error link')
+                print('link loi')
             time.sleep(1)
             driver.close() #dong tab fb
             # errorr heree
@@ -93,6 +148,8 @@ def LamJobLike():    # tao ham de chon mode like hay follow
             time.sleep(1)
             soCash = driver.find_element_by_id('soduchinh').text # so xu hien co
             print(f'so xu hien tai: {soCash}') # in ra so xu hien co
+            if int(soCash) >= xuGioiHan:
+                ThoatChuongTrinh()
             time.sleep(2)
 
     while True:       #lap 
@@ -102,7 +159,7 @@ def LamJobLike():    # tao ham de chon mode like hay follow
 ###################### HET JOB LIKE ############333
 
 ####################DAY LA JOB FOLLOW####################
-def LamJobFollow():
+def LamJobFollow(xuGioiHan):
     driver.get('https://tuongtaccheo.com/kiemtien/subcheo')
     reLoadJob = driver.find_element_by_id('tailai')
     def JobsListCount():
@@ -147,6 +204,8 @@ def LamJobFollow():
             time.sleep(1)
             soCash = driver.find_element_by_id('soduchinh').text
             print(f'so xu hien tai: {soCash}')
+            if int(soCash) >= xuGioiHan:
+                ThoatChuongTrinh()
             time.sleep(2)
 
     while True:       
@@ -159,9 +218,9 @@ def LamJobFollow():
 
 ############PHAN CHINH CUA TOOL############
 if SELECTMODE == 1:
-    LamJobLike()
+    LamJobLike(xuGioiHan)
 elif SELECTMODE == 2:
-    LamJobFollow()
+    LamJobFollow(xuGioiHan)
 
 
 
