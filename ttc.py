@@ -136,7 +136,7 @@ def LamJobLike(xuGioiHan):    # tao ham de chon mode like hay follow
                 likeButton.click() #nhan nut like
             except: # neu link loi thi thuc hien dong nay
                 LINKloi += 1 
-                if LINKloi == 50:
+                if LINKloi == 10:
                     ThoatChuongTrinh('acc co the bi die')
                 print('link loi')
             time.sleep(1)
@@ -174,6 +174,7 @@ def LamJobFollow(xuGioiHan):
         except:
             return 1
     def FollowAction(Jobslist):
+        LINKloi = 0
         for i in range(Jobslist):
             try:
                 ttcRequest = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button.btn.btn-default")))
@@ -198,6 +199,9 @@ def LamJobFollow(xuGioiHan):
                     followButton2.click()
                 time.sleep(1)
             except:
+                LINKloi += 1 
+                if LINKloi == Jobslist:
+                    ThoatChuongTrinh('acc co the bi die')
                 print('link loi')
             driver.close()
             driver.switch_to.window(origin_window)
