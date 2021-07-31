@@ -181,8 +181,10 @@ def LamJobFollow(xuGioiHan):
                 break
             try:
                 driver.switch_to.window(driver.window_handles[-1])
-                driver.get(mbasicLink)            
+                driver.get(mbasicLink)   
+                time.sleep(1)         
                 followButton1 =  WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div[1]/div[1]/div[3]/table/tbody/tr/td[2]/a')))
+                time.sleep(1)
                 followButton2 =  WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div[1]/div[1]/div[3]/table/tbody/tr/td[3]/a')))
                 time.sleep(DELAYTIME)
                 if followButton1.text in ['Theo dõi','Follow']:
