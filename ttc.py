@@ -63,9 +63,8 @@ print("""\
 
 ############KHOI DONG SELENIUM########
 chrome_options = Options()
-#chrome_options.add_argument("--headless")
-
-chrome_options.add_argument("--log-level=OFF")
+chrome_options.add_argument("--headless")
+chrome_options.add_experimental_option("excludeSwitches",["enable-logging"])
 chrome_options.add_experimental_option("prefs", { "profile.default_content_setting_values.notifications": 1})
 driver = webdriver.Chrome(executable_path='/home/bobby/Downloads/chromedriver', options=chrome_options)
 
@@ -101,10 +100,11 @@ time.sleep(3)
 # }
 
 
-def ThoatChuongTrinh(): # dung quan tam lam gi 
+def ThoatChuongTrinh(message = ''): # dung quan tam lam gi 
     print('----------------------------------')
     print('Account Fb: ',a)
     print('Acc ttc: ' ,c)
+    print(message)
     sys.exit()
 
 ############ DAY LA JOB LIKE ####################33
@@ -112,6 +112,7 @@ def LamJobLike(xuGioiHan):    # tao ham de chon mode like hay follow
     driver.get('https://tuongtaccheo.com/kiemtien/') #link like 
 
     reLoadJob = driver.find_element_by_id('tailai')  #nut tai lai, het job thi bam de tai them job moi
+    
     def JobsListCount(): # ham de dem so job hien co 
         try:   #thu doan code duoi, neu bi loi thi bo qua 
             tempJobsList = WebDriverWait(driver, 5).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "#dspost .col-md-2"))) # dem so job hien co
@@ -119,6 +120,7 @@ def LamJobLike(xuGioiHan):    # tao ham de chon mode like hay follow
         except: # neu bi loi doan code tren thi trả ve so 1 
             return 1
     def LikeAction(JobsList): # ham de thuc hien hanh dong like 
+        LINKloi = 0
         for i in range(JobsList): # lap tu 1 den so job hien co 
             try:
                 ttcRequest = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button.btn.btn-default")))# nut lam job
@@ -133,6 +135,9 @@ def LamJobLike(xuGioiHan):    # tao ham de chon mode like hay follow
                 time.sleep(DELAYTIME) #cho 
                 likeButton.click() #nhan nut like
             except: # neu link loi thi thuc hien dong nay
+                LINKloi += 1 
+                if LINKloi == 50:
+                    ThoatChuongTrinh('acc co the bi die')
                 print('link loi')
             time.sleep(1)
             driver.close() #dong tab fb
@@ -184,7 +189,7 @@ def LamJobFollow(xuGioiHan):
                 driver.get(mbasicLink)   
                 time.sleep(1)         
                 followButton1 =  WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div[1]/div[1]/div[3]/table/tbody/tr/td[2]/a')))
-                time.sleep(1)
+                time.sleep(1) 
                 followButton2 =  WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div[1]/div[1]/div[3]/table/tbody/tr/td[3]/a')))
                 time.sleep(DELAYTIME)
                 if followButton1.text in ['Theo dõi','Follow']:
